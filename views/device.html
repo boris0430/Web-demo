@@ -1,0 +1,72 @@
+
+ <% include header.html %>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">变电站二次台账可视化系统</a>
+          <div class="nav-collapse collapse">
+            <p class="navbar-text pull-right">
+              用户： <a href="#" class="navbar-link"><%= user %></a>
+            </p>
+            <ul class="nav">
+              <li class="active"><a href="home?id=1">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="active"><a href="#">主控室</a></li>
+              <li><a href="#">10kv高压室</a></li>
+              <li><a href="#">台账浏览</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+          
+              <div class="span6">
+                <div class="hero-unit">
+  	          	<% for (var i=0;i<modules.length;i++){ %>
+                  <div class="module-box">
+      			    	  <h3><a style="color:#0a0a0a;margin-left:20px" href="device?id=<%= modules[i].device_id %>&moduleId=<%= modules[i].module_id %>"> <%= modules[i].module_name %></a></h3>
+                  </div>
+      			   <% } %>
+                </div>
+              </div>
+              <div class="span6">
+                <div class="hero-unit" style="border-radius:100px">
+                  <h3>台账</h3>
+                  <h4>型号:<%= module.module_name %></h4>
+                  <h4>类型:<%= module.module_type %></h4>
+                  <h4>厂家:<%= module.producer %></h4>
+                  <h4>投运日期:<%= module.running_date %></h4>
+                  <h4>校验日期:<%= module.verify_date %></h4>
+                  <h4>版本号:<%= module.version %></h4>
+                  <h4>校验码:<%= module.verify_code %></h4>
+                  <h4>网络地址:<%= module.net_address %></h4>
+                  <h4>变比:<%= module.bianbi %></h4>
+                  <h4>定值单号:<%= module.dingzhidanhao %></h4>
+
+                </div>
+            </div>
+          
+          
+        </div><!--/span-->
+      </div><!--/row-->
+
+    </div><!--/.fluid-container-->
+
+<% include footer.html %>

@@ -1,0 +1,184 @@
+var express = require('express');
+var router = express.Router();
+var db=require('dao/dbConnect');
+var url = require('url');
+
+/* GET home page. */
+router.get('/index', function(req, res) {
+    if(req.cookies.islogin){
+        req.session.islogin=req.cookies.islogin;
+    }
+if(req.session.islogin){
+    res.locals.islogin=req.session.islogin;
+}
+  res.render('index', { title: 'HOME',test:res.locals.islogin});
+});
+
+
+router.route('/login')
+    .get(function(req, res) {
+        if(req.session.islogin){
+            res.locals.islogin=req.session.islogin;
+        }
+
+        if(req.cookies.islogin){
+            req.session.islogin=req.cookies.islogin;
+        }
+        res.render('login', { title: '用户登录' ,test:res.locals.islogin});
+    })
+    .post(function(req, res) {
+        client=db.connect();
+        result=null;
+        db.selectFun(client,req.body.username, function (result) {
+            if(result[0]===undefined){
+                res.send('没有该用户');
+            }else{
+                if(result[0].password===req.body.password){
+                    req.session.islogin=req.body.username;
+                    res.locals.islogin=req.session.islogin;
+                    res.cookie('islogin',res.locals.islogin,{maxAge:60000});
+                    res.redirect('/home');
+                }else
+                {
+                    res.render('login', {'error':'用户名或密码错误'});
+                }
+               }
+        });
+    });
+
+router.get('/logout', function(req, res) {
+    res.clearCookie('islogin');
+    req.session.destroy();
+    res.redirect('/');
+});
+
+router.get('/home', function(req, res) {
+    if(req.session.islogin){
+        res.locals.islogin=req.session.islogin;
+    }
+    if(req.cookies.islogin){
+        req.session.islogin=req.cookies.islogin;
+    }
+
+    var queryObj = url.parse(req.url,true).query;
+
+    var deviceList=[];
+
+    var id = queryObj.id;
+    if (id) {
+        client=db.connect();
+       
+        db.getVillageList(client, id, function (result) {
+
+            villageList = result;
+
+
+            res.render('home', { title: 'Home', user: res.locals.islogin, villages:villageList });
+        });
+
+        
+   
+    }else{
+        client=db.connect();
+       
+        db.getVillageList(client, 1, function (result) {
+
+            villageList = result;
+
+
+            res.render('home', { title: 'Home', user: res.locals.islogin, villages:villageList });
+        });
+
+        res.render('home', { title: 'Home', user: res.locals.islogin, villages:villageList });
+    }
+    
+});
+
+router.get('/deviceList', function(req, res) {
+    if(req.session.islogin){
+        res.locals.islogin=req.session.islogin;
+    }
+    if(req.cookies.islogin){
+        req.session.islogin=req.cookies.islogin;
+    }
+
+    var queryObj = url.parse(req.url,true).query;
+
+    var deviceList=[];
+
+    var id = queryObj.id;
+    if (id) {
+        client=db.connect();
+       
+        db.getDeviceList(client, id, function (result) {
+
+            deviceList = result;
+
+            res.render('deviceList', { title: 'Home', user: res.locals.islogin, devices:deviceList });
+        });
+   
+    }else{
+        res.render('deviceList', { title: 'Home', user: res.locals.islogin, devices:deviceList });
+    }
+    
+});
+
+
+router.get('/device', function(req, res) {
+    if(req.session.islogin){
+        res.locals.islogin=req.session.islogin;
+    }
+    if(req.cookies.islogin){
+        req.session.islogin=req.cookies.islogin;
+    }
+
+    var queryObj = url.parse(req.url,true).query;
+
+    var moduleList=[];
+    var module = {}
+
+    var id = queryObj.id;
+    var moduleId = queryObj.moduleId;
+    if (id) {
+        client=db.connect();
+       
+        db.getModuleList(client, id, function (result) {
+
+            moduleList = result;
+            if (moduleId) {
+
+                moduleList.forEach(function(item,index){
+                    if (item["module_id"] == moduleId){
+                        module = item;
+                    }
+                });
+            } else {
+                module = moduleList[0];
+            }
+           
+
+            res.render('device', { title: 'Home', user: res.locals.islogin, modules:moduleList, module:module });
+        });
+   
+    }else{
+        res.render('device', { title: 'Home', user: res.locals.islogin, modules:moduleList, module:module });
+    }
+    
+});
+
+
+router.route('/reg')
+    .get(function(req,res){
+        res.render('reg',{title:'注册'});
+    })
+    .post(function(req,res) {
+        client = usr.connect();
+
+        usr.insertFun(client,req.body.username ,req.body.password2, function (err) {
+              if(err) throw err;
+              res.send('注册成功');
+        });
+    });
+
+module.exports = router;
+
