@@ -29,7 +29,7 @@ router.route('/login')
     .post(function(req, res) {
         client=db.connect();
         result=null;
-        db.selectFun(client,req.body.username, function (result) {
+        db.getUser(client,req.body.username, function (result) {
             if(result[0]===undefined){
                 res.send('没有该用户');
             }else{
@@ -72,24 +72,22 @@ router.get('/home', function(req, res) {
 
             villageList = result;
 
-
             res.render('home', { title: 'Home', user: res.locals.islogin, villages:villageList });
         });
 
         
    
     }else{
+
         client=db.connect();
        
         db.getVillageList(client, 1, function (result) {
 
             villageList = result;
 
-
             res.render('home', { title: 'Home', user: res.locals.islogin, villages:villageList });
         });
 
-        res.render('home', { title: 'Home', user: res.locals.islogin, villages:villageList });
     }
     
 });
@@ -172,11 +170,11 @@ router.route('/reg')
         res.render('reg',{title:'注册'});
     })
     .post(function(req,res) {
-        client = usr.connect();
+        client = db.connect();
 
-        usr.insertFun(client,req.body.username ,req.body.password2, function (err) {
+        db.insertUser(client,req.body.username ,req.body.password, function (err) {
               if(err) throw err;
-              res.send('注册成功');
+              res.redirect('login');
         });
     });
 
