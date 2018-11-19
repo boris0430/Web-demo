@@ -112,7 +112,22 @@ router.get('/deviceList', function(req, res) {
 
             deviceList = result;
 
-            res.render('deviceList', { title: 'Home', user: res.locals.islogin, devices:deviceList });
+            console.log(deviceList);
+            var arr = new Array();
+            var xMax = 4;
+            for (i=0; i<xMax; i++) {
+                arr[i] = new Array();
+            }
+
+            for (var i=0; i<deviceList.length; i++) {
+                arr[deviceList[i]["pos_x"]-1][deviceList[i]["pos_y"]-1] = deviceList[i];
+            }
+            console.log(arr);
+ 
+
+
+
+            res.render('deviceList', { title: 'Home', user: res.locals.islogin, devices:arr });
         });
    
     }else{
