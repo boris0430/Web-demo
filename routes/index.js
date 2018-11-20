@@ -169,7 +169,7 @@ router.get('/device', function(req, res) {
                 module = moduleList[0];
             }
            
-
+            console.log(moduleList);
             res.render('device', { title: 'Home', user: res.locals.islogin, modules:moduleList, module:module });
         });
    

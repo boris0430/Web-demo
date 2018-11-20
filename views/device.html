@@ -38,29 +38,167 @@
         <div class="span9">
           
               <div class="span6">
-                <div class="hero-unit">
+                <div class="hero-unit" style="background-color:#ffffff;border: 1px solid #0185cb;margin-top:20px;padding:30px">
+                <div class="module-box" style="margin-top:10px">
+                   <%= modules[0].device_name %>
+                </div>
   	          	<% for (var i=0;i<modules.length;i++){ %>
-                  <div class="module-box">
+                  <div class="module-box" style="margin-top:10px">
       			    	  <h3><a style="color:#0a0a0a;margin-left:20px" href="device?id=<%= modules[i].device_id %>&moduleId=<%= modules[i].module_id %>"> <%= modules[i].module_name %></a></h3>
                   </div>
       			   <% } %>
                 </div>
               </div>
               <div class="span6">
-                <div class="hero-unit" style="border-radius:100px">
-                  <h3>台账</h3>
-                  <h4>型号:<%= module.module_name %></h4>
-                  <h4>类型:<%= module.module_type %></h4>
-                  <h4>厂家:<%= module.producer %></h4>
-                  <h4>投运日期:<%= module.running_date %></h4>
-                  <h4>校验日期:<%= module.verify_date %></h4>
-                  <h4>版本号:<%= module.version %></h4>
-                  <h4>校验码:<%= module.verify_code %></h4>
-                  <h4>网络地址:<%= module.net_address %></h4>
-                  <h4>变比:<%= module.bianbi %></h4>
-                  <h4>定值单号:<%= module.dingzhidanhao %></h4>
 
-                </div>
+                <table style="width:100%;margin-top:30px;border-spacing:20px 20px;border-collapse:separate;">
+                  <tr>
+                    <td >
+                      <div  style="color:#0088cc">设备型号:</div> 
+                    </td>
+                     <td >
+                      <div  style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.module_name %></div>
+                    </td>
+                  </tr>
+                    <tr>
+                    <td >
+                      <div  style="color:#0088cc">保护厂家:</div> 
+                    </td>
+                     <td >
+                      <div  style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.producer %></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td >
+                      <div  style="color:#0088cc">投运日期:</div> 
+                    </td>
+                     <td >
+                      <div  style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.running_date %></div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td >
+                      <div  style="color:#0088cc">校验日期:</div> 
+                    </td>
+                     <td >
+                      <div  style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.verify_date %></div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td >
+                      <div  style="color:#0088cc">版本号:</div> 
+                    </td>
+                     <td >
+                      <div  style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.version %></div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td >
+                      <div  style="color:#0088cc">校验码:</div> 
+                    </td>
+                     <td >
+                      <div  style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.verify_code %></div>
+                    </td>
+                  </tr>
+
+
+                  <tr>
+                    <td >
+                      <div  style="color:#0088cc">网络地址:</div> 
+                    </td>
+                     <td >
+                      <div  style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.net_address %></div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td >
+                      <div  style="color:#0088cc">变比:</div> 
+                    </td>
+                     <td >
+                      <div  style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.bianbi %></div>
+                    </td>
+                  </tr>
+
+                    <tr>
+                    <td >
+                      <div  style="color:#0088cc">定制单号:</div> 
+                    </td>
+                     <td >
+                      <div  style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.dingzhidanhao %></div>
+                    </td>
+                  </tr>
+                </table>
+
+                <!--div style="margin-top:30px">
+                  <div style="margin-top:10px">
+                  <div class="span4" style="color:#0088cc">设备型号:</div> 
+                  <div class="span8" style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.module_name %></div>
+                  </div>
+
+                  <div class="module-box"style="margin-top:10px">
+                  <div class="span4" style="color:#0088cc">保护厂家:</div> 
+                  <div class="span8" style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.producer %></div>
+                  </div>
+                  
+                  <div>
+                  <div class="span4" style="color:#0088cc">投运日期:</div> 
+                  <div class="span8" style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.running_date %></div>
+                  </div>
+                  
+                  <div>
+                  <div class="span4" style="color:#0088cc">校验日期:</div> 
+                  <div class="span8" style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.verify_date %></div>
+                  </div>
+                  
+                  <div>
+                  <div class="span4" style="color:#0088cc">版本号:</div> 
+                  <div class="span8" style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.version %></div>
+                  </div>
+                  
+                  <div>
+                  <div class="span4" style="color:#0088cc">校验码:</div> 
+                  <div class="span8" style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.verify_code %></div>
+                  </div>
+                  
+                  <div>
+                  <div class="span4" style="color:#0088cc">网络地址:</div> 
+                  <div class="span8" style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.net_address %></div>
+                  </div>
+                  
+                  <div>
+                  <div class="span4" style="color:#0088cc">变比:</div> 
+                  <div class="span8" style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.bianbi %></div>
+                  </div>
+                  
+                  <div>
+                    <div class="span4" style="color:#0088cc">定值单号:</div> 
+                  <div class="span8" style="border: 1px solid #0185cb;text-align:center"> 
+                    <%= module.dingzhidanhao %></div>
+
+                   </div>
+
+                </div -->
             </div>
           
           
