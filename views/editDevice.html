@@ -1,0 +1,168 @@
+
+ <% include header.html %>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">变电站二次台账可视化系统</a>
+          <div class="nav-collapse collapse">
+            <p class="navbar-text pull-right">
+              用户： <a href="#" class="navbar-link"><%= user %></a>
+            </p>
+            <ul class="nav">
+              <li class="active"><a href="home?id=1">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="active"><a href="#">主控室</a></li>
+              <li><a href="#">10kv高压室</a></li>
+              <li><a href="#">台账浏览</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+          
+              <div class="span6">
+                <form  method="post">
+                <table style="width:100%;margin-top:30px;border-spacing:20px 20px;border-collapse:separate;">
+                  <tr>
+                    <td >
+                      <div  style="color:#0088cc">设备ID:</div> 
+                    </td>
+                     <td >
+                      <div > 
+                    <input type="text" class="input-block-level" id="module_id" name="module_id" placeholder=         <%= module.module_id %> > </div>
+                    </td>
+                    <tr>
+                    <td >
+                      <div  style="color:#0088cc">设备名称:</div> 
+                    </td>
+                     <td >
+                      <div > 
+                    <input type="text" class="input-block-level" id="module_name" name="module_name" placeholder=         <%= module.module_name %> > </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td >
+                      <div  style="color:#0088cc">保护型号:</div> 
+                    </td>
+                     <td >
+                      <div > 
+                    <input type="text" class="input-block-level" id="module_type" name="module_type" placeholder=         <%= module.module_type %> > </div>
+                    </td>
+                  </tr>
+                    <tr>
+                    <td >
+                      <div  style="color:#0088cc">保护厂家:</div> 
+                    </td>
+                     <td >
+                       <div > 
+                    <input type="text" class="input-block-level" id="producer" name="producer" placeholder=         
+                    <%= module.producer %> > </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td >
+                      <div  style="color:#0088cc">投运日期:</div> 
+                    </td>
+                     <td >
+                       <div > 
+                    <input type="text" class="input-block-level" id="running_date" name="running_date" placeholder=         
+                    <%= module.running_date %> >  </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td >
+                      <div  style="color:#0088cc">校验日期:</div> 
+                    </td>
+                     <td >
+                       <div > 
+                    <input type="text" class="input-block-level" id="verify_date" name="verify_date" placeholder=         
+                    <%= module.verify_date %> > </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td >
+                      <div  style="color:#0088cc">版本号:</div> 
+                    </td>
+                     <td >
+                       <div > 
+                    <input type="text" class="input-block-level" id="version" name="version" placeholder=         
+                    <%= module.version %> > </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td >
+                      <div  style="color:#0088cc">校验码:</div> 
+                    </td>
+                     <td >
+                       <div > 
+                    <input type="text" class="input-block-level" id="verify_code" name="verify_code" placeholder=         
+                    <%= module.verify_code %> > </div>
+                    </td>
+                  </tr>
+
+
+                  <tr>
+                    <td >
+                      <div  style="color:#0088cc">网络地址:</div> 
+                    </td>
+                     <td >
+                       <div > 
+                    <input type="text" class="input-block-level" id="net_address" name="net_address" placeholder=         
+                    <%= module.net_address %> > </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td >
+                      <div  style="color:#0088cc">变比:</div> 
+                    </td>
+                     <td >
+                       <div > 
+                    <input type="text" class="input-block-level" id="bianbi" name="bianbi" placeholder=         
+                    <%= module.bianbi %> > </div>
+                    </td>
+                  </tr>
+
+                    <tr>
+                    <td >
+                      <div  style="color:#0088cc">定制单号:</div> 
+                    </td>
+                     <td >
+                       <div > 
+                    <input type="text" class="input-block-level" id="dingzhidanhao" name="dingzhidanhao" placeholder=         
+                    <%= module.dingzhidanhao %> > </div>
+                    </td>
+                  </tr>
+                </table>
+                <button class="btn btn-large btn-primary" type="submit">提交</button>
+              </form>
+               
+            </div>
+          
+          
+        </div><!--/span-->
+      </div><!--/row-->
+
+    </div><!--/.fluid-container-->
+
+<% include footer.html %>
