@@ -39,20 +39,22 @@
           
               <% %>
 	          	<% for (var i=0;i<devices.length;i++){ %>
-              <div class="hero-unit" style="background-color:#0088cc;padding:40px;margin-top:30px;line-height:15px">
+              <ul class="toggle-icon clearfix exclude-default" style="background-color:#0088cc;margin-top:40px">
               <% if (devices[i]) { %>
               <% for (var j=0;j<devices[i].length;j++){ %>
 
-                  <div style="width:100px;margin:0" class="span1">
+                  <li style="height:60px">
+                    <div >
                     <% if (devices[i][j]) { %>
-                    <div class="module-box">
-        			    	<a style="color:#ffffff;font-size:12px" href="device?id=<%= devices[i][j].device_id %>"> <%= devices[i][j].device_name %></a>
-                    </div>
+                    
+        			    	<a class='toggle clearfix' style="color:#ffffff;font-size:16px" href="device?id=<%= devices[i][j].device_id %>"><p> <%= devices[i][j].device_name %></p></a>
+                    
                     <% } %>
-                  </div>
+                    </div>
+                  </li>
               <% } %>
               <% } %>
-                 </div>
+                 </ul>
     			   <% } %>
 
        
