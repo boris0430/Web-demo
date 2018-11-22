@@ -170,7 +170,7 @@ router.get('/device', function(req, res) {
             }
            
             console.log(moduleList);
-            res.render('device', { title: 'Home', user: res.locals.islogin, modules:moduleList, module:module });
+            res.render('device', { title: 'Home', user: res.locals.islogin, modules:moduleList, module:module,device_id:id });
         });
    
     }else{
@@ -194,47 +194,62 @@ router.route('/reg')
     });
 
 
-router.route('/editDevice')
+router.route('/editModule')
     .get(function(req,res){
         var queryObj = url.parse(req.url,true).query;
         var id = queryObj.id;
-        var moduleId = queryObj.moduleId;
+        var device_id = queryObj.device_id;
+        module = {}
         if (id) {
             client=db.connect();
            
             db.getModule(client, id, function (result) {
 
                 moduleList = result;
-                if (moduleId) {
-                    module = moduleList[0];
-                } else {
-                    module = moduleList[0];
-                }
+                
+                module = moduleList[0];
                
                 console.log(moduleList);
-                res.render('editDevice', { title: 'Home', user: res.locals.islogin, module:module });
+                res.render('editModule', { title: 'Home', user: res.locals.islogin, module:module,device_id:device_id });
             });
        
         }else{
-            res.render('editDevice', { title: 'Home', user: res.locals.islogin,  module:module });
+            res.render('editModule', { title: 'Home', user: res.locals.islogin,  module:module,device_id:device_id });
         }
     })
     .post(function(req,res) {
         client = db.connect();
         console.log(req.body);
-        db.updateModule(client,1 ,req.body.module_name,req.body.module_type,req.body.producer,
-        req.body.running_date,req.body.verify_date,req.body.version,req.body.verify_code,req.body.network_address,
-        req.body.bianbi,req.body.dingzhidanhao, function (err) {
-              if(err) throw err;
-                db.getModule(client, 1, function (result) {
+        device_id = req.body.device_id;
 
-                moduleList = result;
+        if (req.body.module_id) {
+            
+
+            db.updateModule(client,req.body.module_id ,req.body.module_name,req.body.module_type,req.body.producer,
+                req.body.running_date,req.body.verify_date,req.body.version,req.body.verify_code,req.body.net_address,
+                req.body.bianbi,req.body.dingzhidanhao, function (err) {
+              if(err) throw err;
+                //db.getModule(client, 1, function (result) {
+
+                //moduleList = result;
         
                
-                console.log(moduleList);
-                res.render('editDevice', { title: 'Home', user: res.locals.islogin, module:moduleList[0] });
-              });
+                console.log('ss' + device_id);
+                res.redirect('device?id='+ device_id);
+              //});
         });
+
+        } else {
+            db.insertModule(client, device_id, req.body.module_name,req.body.module_type,req.body.producer,
+                req.body.running_date,req.body.verify_date,req.body.version,req.body.verify_code,
+                req.body.net_address,req.body.bianbi,req.body.dingzhidanhao, function (err) {
+              if(err) throw err;
+               
+                
+                res.redirect('device?id='+ device_id);
+              });
+        }
+        
     });
 
 

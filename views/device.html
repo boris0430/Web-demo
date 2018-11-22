@@ -47,7 +47,12 @@
       			    	  <h3><a style="color:#0a0a0a;margin-left:20px" href="device?id=<%= modules[i].device_id %>&moduleId=<%= modules[i].module_id %>"> <%= modules[i].module_name %></a></h3>
                   </div>
       			   <% } %>
+               <div style="margin-top:10px;margin-left:10px;">
+                 <button class="btn btn-large btn-primary"><a style="color:#ffffff;font-size:12px" href="editModule?device_id=<%= device_id %>" > 新增</a>
+                 </button>
+               </div>
                 </div>
+
               </div>
               <div class="span6">
 
@@ -199,8 +204,8 @@
                    </div>
 
                 </div -->
-        <button class="btn btn-large btn-primary"><a style="color:#ffffff;font-size:12px" href="editDevice?id=1"> 编辑</a>
-</button>
+        <button class="btn btn-large btn-primary"><a style="color:#ffffff;font-size:12px" href="editModule?id=1&device_id=1"> 编辑</a>
+        </button>
             </div>
           
           

@@ -41,13 +41,21 @@
                 <form  method="post">
                 <table style="width:100%;margin-top:30px;border-spacing:20px 20px;border-collapse:separate;">
                   <tr>
+
+                    <div style="display:none"> 
+                      <input type="text" class="input-block-level" id="device_id" name="device_id" placeholder=         <%= device_id %>  value= <%= device_id %> > 
+                    </div>
+
+
+                    <% if (module.module_id) { %>
                     <td >
                       <div  style="color:#0088cc">设备ID:</div> 
                     </td>
                      <td >
                       <div > 
-                    <input type="text" class="input-block-level" id="module_id" name="module_id" placeholder=         <%= module.module_id %> > </div>
+                    <input type="text" class="input-block-level" id="module_id" name="module_id" placeholder=         <%= module.module_id %>  value= <%= module.module_id %> ></div>
                     </td>
+                    <% } %>
                     <tr>
                     <td >
                       <div  style="color:#0088cc">设备名称:</div> 
