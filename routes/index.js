@@ -4,7 +4,6 @@ var db=require('dao/dbConnect');
 var url = require('url');
 
 
-
 /* GET home page. */
 router.get('/', function(req, res) {
 
@@ -123,7 +122,6 @@ router.get('/deviceList', function(req, res) {
 
             deviceList = result;
 
-            console.log(deviceList);
             var arr = new Array();
             var xMax = 4;
             for (i=0; i<xMax; i++) {
@@ -208,6 +206,16 @@ router.get('/device', function(req, res) {
 
 
 
+router.route('/addDevice')
+    .post(function(req,res) {
+
+        console.log("sssssssssssssssssssssssssss");
+        console.log(req.body);
+
+        res.send('true');
+    });
+        
+
 
 router.route('/editModule')
     .get(function(req,res){
@@ -224,7 +232,7 @@ router.route('/editModule')
                 
                 module = moduleList[0];
                
-                console.log(moduleList);
+                
                 res.render('editModule', { title: 'Home', user: res.locals.islogin, module:module,device_id:device_id });
             });
        
