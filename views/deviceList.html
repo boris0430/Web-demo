@@ -4,21 +4,27 @@
 
 
     <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span2">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="active"><a href="#">主控室</a></li>
-              <li><a href="#">10kv高压室</a></li>
-              <li><a href="#">台账浏览</a></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span10">
+      <div class="row-fluid" style="border: 1px solid #0185cb;margin-top:20px;">
+        
+        <div class="span12">
+            <div style="text-align:center;border-bottom: 1px solid #0185cb;">
+              <h1>110KV</h1>
+            </div>
+            <div style="text-align:center;border-bottom: 1px solid #0185cb;height:60px;">
+              <div class="span4">
+                <div class="active" style="margin:10px 30px 10px 30px;background-color:#36bf26;padding:10px;text-align:center"><a style="background-color:#36bf26;color:#ffffff" href="#">主控室</a></div>
+              </div>
+              <div class="span4">
+                 <div class="active" style="margin:10px 30px 10px 30px;background-color:#ec7b06;padding:10px;text-align:center"><a style="background-color:#ec7b06;color:#ffffff" href="#">10kv高压室</a></div>
+              </div>
+              <div class="span4">
+                 <div class="active" style="margin:10px 30px 10px 30px;background-color:#ec7b06;padding:10px;text-align:center"><a style="background-color:#ec7b06;color:#ffffff" href="#">台账</a></div>
+              </div>
+            </div>
           
-              <% %>
+            <div style="text-align:center;height:450px;margin:0 40px 0 40px">
 	          	<% for (var i=0;i<devices.length;i++){ %>
-              <ul class="toggle-icon clearfix exclude-default" style="background-color:#0088cc;margin-top:40px;">
+              <ul class="toggle-icon clearfix exclude-default" style="background-color:#0088cc;margin-top:20px;">
               <% if (devices[i]) { %>
               <% for (var j=0;j<devices[i].length;j++){ %>
 
@@ -35,8 +41,19 @@
               <% } %>
                  </ul>
     			   <% } %>
+           </div>
 
-       
+          
+          <div style="text-align:center;height:60px;border-top: 1px solid #0185cb">
+            <div class="span6">
+            </div>
+            <div class="span3">
+             <div class="active" style="margin:10px 30px 10px 30px;background-color:#ec7b06;padding:10px;text-align:center"><a style="background-color:#ec7b06;color:#ffffff" href="#">主屏编辑</a></div>
+           </div>
+           <div class="span3">
+              <div class="active" style="margin:10px 30px 10px 30px;background-color:#ec7b06;padding:10px;text-align:center"><a style="background-color:#ec7b06;color:#ffffff" href="#">返回</a></div>
+            </div>
+          </div>
           
           
         </div><!--/span-->
