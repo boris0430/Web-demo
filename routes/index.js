@@ -32,6 +32,18 @@ router.get('/', function(req, res) {
   
 });
 
+router.route('/reg')
+    .get(function(req,res){
+        res.render('reg',{title:'注册'});
+    })
+    .post(function(req,res) {
+        client = db.connect();
+
+        db.insertUser(client,req.body.username ,req.body.password, function (err) {
+              if(err) throw err;
+              res.redirect('login');
+        });
+    });
 
 router.route('/login')
     .get(function(req, res) {
@@ -85,15 +97,8 @@ router.get('/home', function(req, res) {
 
             res.render('home', { villages:villageList, user: req.cookies.username});
         });
-
-        
-   
     }else{
-
         res.render('home', { villages:[], user: req.cookies.username });
-
-        
-
     }
     
 });
@@ -155,7 +160,7 @@ router.get('/device', function(req, res) {
 
     var moduleList=[];
     var module = {}
-
+    var device_name = ''
     var id = queryObj.id;
     var moduleId = queryObj.moduleId;
     if (id) {
@@ -174,10 +179,25 @@ router.get('/device', function(req, res) {
             } else {
                 module = moduleList[0];
             }
+            if (module){
+                device_name = module['device_name']
+                console.log(moduleList);
+                res.render('device', { title: 'Home', user: res.locals.islogin, modules:moduleList, module:module,device_id:id,device_name:device_name });
+        
+            }else{
+
+                db.getDevice(client, id, function (result) {
+                    device = result[0];
+                    device_name = device['device_name']
+                    console.log(moduleList);
+                    res.render('device', { title: 'Home', user: res.locals.islogin, modules:moduleList, module:module,device_id:id,device_name:device_name });
+        
+                });
+
+               
+            }
            
-            console.log(moduleList);
-            res.render('device', { title: 'Home', user: res.locals.islogin, modules:moduleList, module:module,device_id:id });
-        });
+            });
    
     }else{
         res.render('device', { title: 'Home', user: res.locals.islogin, modules:moduleList, module:module });
@@ -186,18 +206,7 @@ router.get('/device', function(req, res) {
 });
 
 
-router.route('/reg')
-    .get(function(req,res){
-        res.render('reg',{title:'注册'});
-    })
-    .post(function(req,res) {
-        client = db.connect();
 
-        db.insertUser(client,req.body.username ,req.body.password, function (err) {
-              if(err) throw err;
-              res.redirect('login');
-        });
-    });
 
 
 router.route('/editModule')
