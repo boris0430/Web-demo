@@ -1,7 +1,7 @@
 
  <% include header.html %>
 
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top " >
       <div class="navbar-inner">
         <div class="container-fluid">
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -25,51 +25,78 @@
       </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid home navbar-inverse" id="home">
       <div class="row-fluid">
         <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="active"><a href="#">咸阳东集控</a></li>
-              <li><a href="home?id=1">咸阳西集控</a></li>
-              <li><a href="home?id=2">兴平集控</a></li>
-              <li><a href="home?id=3">杨凌集控</a></li>
-              <li><a href="home?id=4">三原集控</a></li>
-              <li><a href="home?id=5">乾礼集控</a></li>
+          <div class=" sidebar-nav" style="border: 1px solid #0185cb;margin-top:30px;height:500px;background-color: #0088cc;">
+            <ul class="nav" style="margin-bottom: 20px;margin-left: 0;list-style: none;">
+              <li class="active" style="margin:30px;background-color:#ec7b06;padding:10px;text-align:center"><a style="background-color:#ec7b06;" href="#">咸阳东集控</a></li>
+             
+               <li class="active" style="margin:30px;background-color:#ec7b06;padding:10px;text-align:center"><a style="background-color:#ec7b06;" href="#">咸阳西集控</a></li>
+              
+               <li class="active" style="margin:30px;background-color:#ec7b06;padding:10px;text-align:center"><a style="background-color:#ec7b06;" href="#">兴平集控</a></li>
+              
+               <li class="active" style="margin:30px;background-color:#ec7b06;padding:10px;text-align:center"><a style="background-color:#ec7b06;" href="#">杨凌集控</a></li>
+              
+               <li class="active" style="margin:30px;background-color:#36bf26;padding:10px;text-align:center"><a style="background-color:#36bf26;" href="#">乾礼集控</a></li>
+              
+              
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
-          <div class="hero-unit">
+          <div style="border: 1px solid #0185cb;margin-top:30px;height:500px">
 
 
           	<div class="span4">
-	         <h2>110kv</h2>
+	           <div class=" sidebar-nav" style="border: 1px solid #0185cb;margin:30px;height:400px;background-color: #0088cc;">
+              <ul class="nav" style="margin-bottom: 20px;margin-left: 0;list-style: none;">
 	          	<% for (var i=0;i<villages.length;i++){ %>
+
 			    <% if (villages[i].V_level == 110) { %>
-			    	<h3><a href="deviceList?id=<%= villages[i].village_id %>"> <%= villages[i].village_name %></a></h3>
-			    	<% } %>
-			   <% } %>
+          <li class="active" style="margin:30px;background-color:#36bf26;padding:10px;text-align:center">
+            <a style="background-color:#36bf26;" href="deviceList?id=<%= villages[i].village_id %>"> <%= villages[i].village_name %></a></li>
+
+			    	
+      			    	<% } %>
+      			   <% } %>
+             </ul>
+             </div>
 		        </div>
 
-	        <div class="span4">
-	         <h2>35kv</h2>
-	          	<% for (var i=0;i<villages.length;i++){ %>
-	          		<% if (villages[i].V_level == 35) { %>
-			    	<h3><%= villages[i].village_name %></h3>
-			    	<% } %>
-			   <% } %>
-		        </div>
+              <div class="span4">
+             <div class=" sidebar-nav" style="border: 1px solid #0185cb;margin:30px;height:400px;background-color: #0088cc;">
+              <ul class="nav" style="margin-bottom: 20px;margin-left: 0;list-style: none;">
+              <% for (var i=0;i<villages.length;i++){ %>
 
-	        <div class="span4">
-	          <h2>10kv</h2>
-	         
-	          	<% for (var i=0;i<villages.length;i++){ %>
-			   <% if (villages[i].V_level == 10) { %>
-			    	<h3><%= villages[i].village_name %></h3>
-			    	<% } %>
-			   <% } %>
-		        </div>
+          <% if (villages[i].V_level == 35) { %>
+          <li class="active" style="margin:30px;background-color:#36bf26;padding:10px;text-align:center">
+            <a style="background-color:#36bf26;" href="deviceList?id=<%= villages[i].village_id %>"> <%= villages[i].village_name %></a></li>
+
+            
+                  <% } %>
+               <% } %>
+             </ul>
+             </div>
+            </div>
+
+              <div class="span4">
+             <div class=" sidebar-nav" style="border: 1px solid #0185cb;margin:30px;height:400px;background-color: #0088cc;">
+              <ul class="nav" style="margin-bottom: 20px;margin-left: 0;list-style: none;">
+              <% for (var i=0;i<villages.length;i++){ %>
+
+          <% if (villages[i].V_level == 10) { %>
+          <li class="active" style="margin:30px;background-color:#36bf26;padding:10px;text-align:center">
+            <a style="background-color:#36bf26;" href="deviceList?id=<%= villages[i].village_id %>"> <%= villages[i].village_name %></a></li>
+
+            
+                  <% } %>
+               <% } %>
+             </ul>
+             </div>
+            </div>
+
+	        
 
 
           </div>

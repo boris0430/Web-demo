@@ -90,14 +90,9 @@ router.get('/home', function(req, res) {
    
     }else{
 
-        client=db.connect();
-       
-        db.getVillageList(client, 1, function (result) {
+        res.render('home', { villages:[], user: req.cookies.username });
 
-            villageList = result;
-
-            res.render('home', { villages:villageList, user: req.cookies.username });
-        });
+        
 
     }
     
