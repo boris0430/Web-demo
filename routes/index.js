@@ -3,40 +3,53 @@ var router = express.Router();
 var db=require('dao/dbConnect');
 var url = require('url');
 
+
+
 /* GET home page. */
-router.get('/index', function(req, res) {
-    if(req.cookies.islogin){
-        req.session.islogin=req.cookies.islogin;
+router.get('/', function(req, res) {
+
+    //res.cookie('username','aaa',{maxAge:60000*60*24});
+
+    // console.log('ss' + req.cookies.username)
+    // 未登录
+    if(! req.cookies.username ){
+        res.redirect('/login');
     }
-if(req.session.islogin){
-    res.locals.islogin=req.session.islogin;
-}
-  res.render('index', { title: 'HOME',test:res.locals.islogin});
+    // 登录
+    else {
+
+        res.locals.username=req.cookies.username;
+
+        client=db.connect();
+       
+        db.getVillageList(client, 1, function (result) {
+
+            villageList = result;
+
+            res.render('home', {villages:villageList });
+        });
+    }
+  
 });
 
 
 router.route('/login')
     .get(function(req, res) {
-        if(req.session.islogin){
-            res.locals.islogin=req.session.islogin;
-        }
-
-        if(req.cookies.islogin){
-            req.session.islogin=req.cookies.islogin;
-        }
-        res.render('login', { title: '用户登录' ,test:res.locals.islogin});
+        
+        res.render('login');
     })
     .post(function(req, res) {
         client=db.connect();
-        result=null;
         db.getUser(client,req.body.username, function (result) {
+            console.log('result:' + result);
             if(result[0]===undefined){
-                res.send('没有该用户');
+                res.render('login', {'error':'没有该用户'});
             }else{
                 if(result[0].password===req.body.password){
-                    req.session.islogin=req.body.username;
-                    res.locals.islogin=req.session.islogin;
-                    res.cookie('islogin',res.locals.islogin,{maxAge:60000});
+
+                    res.locals.username=req.body.username;
+                    res.cookie('username',res.locals.username,{maxAge:60000*60*24});
+
                     res.redirect('/home');
                 }else
                 {
@@ -47,17 +60,15 @@ router.route('/login')
     });
 
 router.get('/logout', function(req, res) {
-    res.clearCookie('islogin');
+    res.clearCookie('username');
     req.session.destroy();
     res.redirect('/');
 });
 
 router.get('/home', function(req, res) {
-    if(req.session.islogin){
-        res.locals.islogin=req.session.islogin;
-    }
-    if(req.cookies.islogin){
-        req.session.islogin=req.cookies.islogin;
+
+    if(! req.cookies.username){
+        res.redirect("/login");
     }
 
     var queryObj = url.parse(req.url,true).query;
@@ -72,7 +83,7 @@ router.get('/home', function(req, res) {
 
             villageList = result;
 
-            res.render('home', { title: 'Home', user: res.locals.islogin, villages:villageList });
+            res.render('home', { villages:villageList, user: req.cookies.username});
         });
 
         
@@ -85,7 +96,7 @@ router.get('/home', function(req, res) {
 
             villageList = result;
 
-            res.render('home', { title: 'Home', user: res.locals.islogin, villages:villageList });
+            res.render('home', { villages:villageList, user: req.cookies.username });
         });
 
     }
