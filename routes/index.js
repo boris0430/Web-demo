@@ -114,11 +114,11 @@ router.get('/deviceList', function(req, res) {
 
     var deviceList=[];
 
-    var id = queryObj.id;
-    if (id) {
+    var village_id = queryObj.id;
+    if (village_id) {
         client=db.connect();
        
-        db.getDeviceList(client, id, function (result) {
+        db.getDeviceList(client, village_id, function (result) {
 
             deviceList = result;
 
@@ -132,15 +132,11 @@ router.get('/deviceList', function(req, res) {
                 arr[deviceList[i]["pos_x"]-1][deviceList[i]["pos_y"]-1] = deviceList[i];
             }
             console.log(arr);
- 
-
-
-
-            res.render('deviceList', { title: 'Home', user: res.locals.islogin, devices:arr });
+            res.render('deviceList', { village_id: village_id, user: res.locals.islogin, devices:arr });
         });
    
     }else{
-        res.render('deviceList', { title: 'Home', user: res.locals.islogin, devices:deviceList });
+        res.render('deviceList', { village_id: 1, user: res.locals.islogin, devices:deviceList });
     }
     
 });
@@ -189,10 +185,7 @@ router.get('/device', function(req, res) {
                     device_name = device['device_name']
                     console.log(moduleList);
                     res.render('device', { title: 'Home', user: res.locals.islogin, modules:moduleList, module:module,device_id:id,device_name:device_name });
-        
                 });
-
-               
             }
            
             });
@@ -208,11 +201,13 @@ router.get('/device', function(req, res) {
 
 router.route('/addDevice')
     .post(function(req,res) {
-
-        console.log("sssssssssssssssssssssssssss");
         console.log(req.body);
+         db.addDevice(client,req.body.village_id ,req.body.device_name,req.body.device_pos_x,req.body.device_pos_y,
+                 function (err) {
+              if(err) throw err;
+              res.send('true');
+        });
 
-        res.send('true');
     });
         
 

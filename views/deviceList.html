@@ -6,6 +6,11 @@
     <div class="container-fluid">
       <div class="row-fluid" style="border: 1px solid #0185cb;margin-top:20px;">
         
+
+        <div style="display:none"> 
+            <input type="text" class="input-block-level" id="village_id" name="village_id" placeholder=         <%= village_id %>  value= <%= village_id %> > 
+          </div>
+
         <div class="span12">
             <div style="text-align:center;border-bottom: 1px solid #0185cb;">
               <h1>110KV</h1>
@@ -109,9 +114,10 @@
           device_pos_y = $("#device_pos_y").val();
           device_pos_x = $("#device_pos_x").val();
           new_device_name = $("#new_device_name").val();
+          village_id = $("#village_id").val();
         
           $.ajax({
-                data: {device_pos_y:device_pos_y,device_pos_x:device_pos_x,new_device_name:new_device_name},
+                data: {device_pos_y:device_pos_y,device_pos_x:device_pos_x,device_name:new_device_name,village_id:village_id},
                 url: "http://127.0.0.1:3000/addDevice",
                 dataType: 'json',
                 cache: false,
