@@ -3,36 +3,50 @@
 
 
     <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="active"><a href="#">主控室</a></li>
-              <li><a href="#">10kv高压室</a></li>
-              <li><a href="#">台账浏览</a></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span9">
+      
+       <div class="row-fluid" style="border: 1px solid #0185cb;margin-top:20px;">
+
+        <div class="span12">
+            <div style="text-align:center;border-bottom: 1px solid #0185cb;">
+              <h1>110KV彬县变电站</h1>
+            </div>
+            <div style="text-align:center;border-bottom: 1px solid #0185cb;height:60px;">
+              <div class="span4">
+                <div class="active" style="margin:10px 30px 10px 30px;background-color:#36bf26;padding:10px;text-align:center"><a style="background-color:#36bf26;color:#ffffff" href="#">主控室</a></div>
+              </div>
+              <div class="span4">
+                 <div class="active" style="margin:10px 30px 10px 30px;background-color:#ec7b06;padding:10px;text-align:center"><a style="background-color:#ec7b06;color:#ffffff" href="#">10kv高压室</a></div>
+              </div>
+              <div class="span4">
+                 <div class="active" style="margin:10px 30px 10px 30px;background-color:#ec7b06;padding:10px;text-align:center"><a style="background-color:#ec7b06;color:#ffffff" href="#">台账</a></div>
+              </div>
+            </div>
+
+            <div style="text-align:center;height:500px;margin:0 40px 0 40px">
           
-              <div class="span6">
+              <div class="span4">
                 <div class="hero-unit" style="background-color:#ffffff;border: 1px solid #0185cb;margin-top:20px;padding:30px">
                 <div class="module-box" style="margin-top:10px">
                    <%= device_name %>
                 </div>
   	          	<% for (var i=0;i<modules.length;i++){ %>
-                  <div class="module-box" style="margin-top:10px">
-      			    	  <h3><a style="color:#0a0a0a;margin-left:20px" href="device?id=<%= modules[i].device_id %>&moduleId=<%= modules[i].module_id %>"> <%= modules[i].module_name %></a></h3>
+                  <div class="module-box module-info" id="module-<%= modules[i].module_id %>"  style="margin-top:5px;height:40px;">
+                    <div class="span8">
+      			    	      <h4><a style="color:#0a0a0a;margin-left:20px" href="device?id=<%= modules[i].device_id %>&modulesId=<%= modules[i].module_id %>"> <%= modules[i].module_name %></a></h4>
+                    </div>
+                     <div id="edit-module-<%= modules[i].module_id %>" class="edit-module span4" style="display:none;margin:5px 0 5px 0"> 
+                        <a href="editModule?id=<%= modules[i].module_id %>&device_id=1"> 编辑</a>
+
+                      </div>
+
                   </div>
+                 
       			   <% } %>
-               <div style="margin-top:10px;margin-left:10px;">
-                 <button class="btn btn-large btn-primary"><a style="color:#ffffff;font-size:12px" href="editModule?device_id=<%= device_id %>" > 添加装置</a>
-                 </button>
-               </div>
+          
                 </div>
 
               </div>
-              <div class="span6">
+              <div class="span8">
                 <% if (module){ %>
                 <table style="width:100%;margin-top:30px;border-spacing:20px 20px;border-collapse:separate;">
                   <tr>
@@ -124,18 +138,42 @@
                     </td>
                   </tr>
                 </table>
-                 <button class="btn btn-large btn-primary"><a style="color:#ffffff;font-size:12px" href="editModule?id=1&device_id=1"> 编辑装置</a>
-              </button>
+                
                 <% } %>
             
              
             </div>
+
+          </div>
+
+          <div style="text-align:center;height:60px;border-top: 1px solid #0185cb">
+          
+            <div class="span3">
+              <div class="active" id='add_device' style="margin:10px 30px 10px 30px;background-color:#ec7b06;padding:10px;text-align:center"><div  style="background-color:#ec7b06;color:#ffffff" href="#"><a style="color:#ffffff;font-size:12px" href="editModule?device_id=<%= device_id %>" > 添加装置</a></div></div>
+            </div>
+            
+           <div class="span3">
+              <div class="active" style="margin:10px 30px 10px 30px;background-color:#ec7b06;padding:10px;text-align:center"><a style="background-color:#ec7b06;color:#ffffff" href="#">返回</a></div>
+            </div>
+          </div>
           
           
+
+
         </div><!--/span-->
       </div><!--/row-->
 
     </div><!--/.fluid-container-->
+
+<script type="text/javascript">
+$(".module-info").hover(function(){
+        var id = $(this).attr('id');
+        $("#edit-" + id).css("display","block");
+    },function(){
+        var id = $(this).attr('id');
+        $("#edit-" + id).css("display","none");
+    });
+</script>
 
 
 <% include footer.html %>
