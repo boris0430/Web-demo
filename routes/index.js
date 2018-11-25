@@ -131,7 +131,7 @@ router.get('/deviceList', function(req, res) {
             for (var i=0; i<deviceList.length; i++) {
                 arr[deviceList[i]["pos_x"]-1][deviceList[i]["pos_y"]-1] = deviceList[i];
             }
-            console.log(arr);
+            //console.log(arr);
             res.render('deviceList', { village_id: village_id, user: res.locals.islogin, devices:arr });
         });
    
@@ -202,11 +202,20 @@ router.get('/device', function(req, res) {
 router.route('/addDevice')
     .post(function(req,res) {
         console.log(req.body);
-         db.addDevice(client,req.body.village_id ,req.body.device_name,req.body.device_pos_x,req.body.device_pos_y,
-                 function (err) {
-              if(err) throw err;
-              res.send('true');
-        });
+
+        if (req.body.device_id) {
+            db.updateDevice(client,req.body.device_id ,req.body.device_name,req.body.device_pos_x,req.body.device_pos_y,
+                     function (err) {
+                  if(err) throw err;
+                  res.send('true');
+            });
+        } else {
+             db.addDevice(client,req.body.village_id ,req.body.device_name,req.body.device_pos_x,req.body.device_pos_y,
+                     function (err) {
+                  if(err) throw err;
+                  res.send('true');
+            });
+        }
 
     });
         

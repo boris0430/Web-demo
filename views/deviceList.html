@@ -2,18 +2,16 @@
  <% include header.html %>
 
 
+      <div style="display:none"> 
+        <input type="text" class="input-block-level" id="village_id" name="village_id" placeholder=         <%= village_id %>  value= <%= village_id %> > 
+      </div>
 
     <div class="container-fluid">
       <div class="row-fluid" style="border: 1px solid #0185cb;margin-top:20px;">
-        
-
-        <div style="display:none"> 
-            <input type="text" class="input-block-level" id="village_id" name="village_id" placeholder=         <%= village_id %>  value= <%= village_id %> > 
-          </div>
 
         <div class="span12">
             <div style="text-align:center;border-bottom: 1px solid #0185cb;">
-              <h1>110KV</h1>
+              <h1>110KV彬县变电站</h1>
             </div>
             <div style="text-align:center;border-bottom: 1px solid #0185cb;height:60px;">
               <div class="span4">
@@ -29,16 +27,36 @@
           
             <div style="text-align:center;height:450px;margin:0 40px 0 40px">
 	          	<% for (var i=0;i<devices.length;i++){ %>
-              <ul class="toggle-icon clearfix exclude-default" style="background-color:#0088cc;margin-top:20px;">
+              <ul class="toggle-icon clearfix exclude-default" style="margin-top:20px;">
               <% if (devices[i]) { %>
               <% for (var j=0;j<devices[i].length;j++){ %>
 
-                  <li style="height:60px;">
+                  <li style="height:60px;background-color:#0088cc;" >
                     <div >
                     <% if (devices[i][j]) { %>
-                    
-        			    	<a class='toggle clearfix' style="color:#ffffff;font-size:16px" href="device?id=<%= devices[i][j].device_id %>"><p> <%= devices[i][j].device_name %></p></a>
-                    
+                    <div  id="device-module-<%= devices[i][j].device_id %>" class="device-module">
+          			    	<a class='toggle clearfix' style="color:#ffffff;font-size:16px" href="device?id=<%= devices[i][j].device_id %>"><p> <%= devices[i][j].device_name %></p></a>
+                      
+                      <div id="edit-device-module-<%= devices[i][j].device_id %>" class="edit-device-module" style="display:none"> 
+                        编辑
+
+                      </div>
+                      <div id="edit-device-module-<%= devices[i][j].device_id %>-id" style="display:none"> 
+                          <%= devices[i][j].device_id %>
+                      </div>
+                      <div id="edit-device-module-<%= devices[i][j].device_id %>-name" style="display:none"> 
+                          <%= devices[i][j].device_name %>
+                      </div>
+                      <div id="edit-device-module-<%= devices[i][j].device_id %>-x"  style="display:none"> 
+                      
+                        <%= devices[i][j].pos_x %>
+                      </div>
+                      <div id="edit-device-module-<%= devices[i][j].device_id %>-y"  style="display:none"> 
+                     <%= devices[i][j].pos_y %>
+
+                      </div>
+                    </div>
+
                     <% } %>
                     </div>
                   </li>
@@ -51,18 +69,18 @@
           
           <div style="text-align:center;height:60px;border-top: 1px solid #0185cb">
             <div class="span6">
-              <div class="active" id='add_device' style="margin:10px 30px 10px 30px;background-color:#ec7b06;padding:10px;text-align:center"><div  style="background-color:#ec7b06;color:#ffffff" href="#">新增主屏</div></div>
             </div>
             <div class="span3">
-             <div class="active"  style="margin:10px 30px 10px 30px;background-color:#ec7b06;padding:10px;text-align:center"><div  style="background-color:#ec7b06;color:#ffffff" href="#">编辑主屏</div></div>
-           </div>
+              <div class="active" id='add_device' style="margin:10px 30px 10px 30px;background-color:#ec7b06;padding:10px;text-align:center"><div  style="background-color:#ec7b06;color:#ffffff" href="#">新增主屏</div></div>
+            </div>
+            
            <div class="span3">
               <div class="active" style="margin:10px 30px 10px 30px;background-color:#ec7b06;padding:10px;text-align:center"><a style="background-color:#ec7b06;color:#ffffff" href="#">返回</a></div>
             </div>
           </div>
 
           
-          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal fade" id="myModal" tabindex="-5" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -70,6 +88,10 @@
                     <h4 class="modal-title" id="myModalLabel">新增</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="form-group">
+                        <label for="txt_departmentname">屏ID</label>
+                        <input type="text" name="new_device_id" class="form-control" id="new_device_id" placeholder="屏ID" readonly="true">
+                    </div>
 
                     <div class="form-group">
                         <label for="txt_departmentname">屏名称</label>
@@ -102,39 +124,76 @@
 
     <script>
     $("#add_device").click(function () {
+        $("#new_device_id").val('');
+        $("#new_device_id").parent().css("display","none");
+
+        $("#new_device_name").val('');
+        $("#device_pos_x").val('');
+        $("#device_pos_y").val('');
           //alert("aa");
-          $("#myModalLabel").text("新增");
+        $("#myModalLabel").text("新增");
+        $('#myModal').modal();
+     });
+
+    $(".edit-device-module").click(function () {
+
+        var id = $(this).attr('id');
+        $("#new_device_id").parent().css("display","block");
+        $("#new_device_id").val($.trim($("#" + id + '-id').text()));
+        $("#new_device_name").val($.trim($("#" + id + '-name').text()));
+        $("#device_pos_x").val($.trim($("#" + id + '-x').text()));
+        $("#device_pos_y").val($.trim($("#" + id + '-y').text()));
+
+
+        $("#myModalLabel").text("编辑");
         $('#myModal').modal();
      });
 
     
+    $(".device-module").hover(function(){
+        var id = $(this).attr('id');
+        $(this).parent().parent().css("background-color","#36bf26");
+        //$(".edit-device-module").css("display","none");
+        $("#edit-" + id).css("display","block");
 
+
+        //$(".device-module").css;
+    },function(){
+        var id = $(this).attr('id');
+        $(this).parent().parent().css("background-color","#0088cc");
+        //$(".edit-device-module").css({"display":"none"});
+        $("#edit-" + id).css("display","none");
+        //$(".device-module").css("background-color","pink");
+    });
 
     $("#add_device_submit").click(function () {
           device_pos_y = $("#device_pos_y").val();
           device_pos_x = $("#device_pos_x").val();
           new_device_name = $("#new_device_name").val();
           village_id = $("#village_id").val();
+          device_id = $("#new_device_id").val();
         
           $.ajax({
-                data: {device_pos_y:device_pos_y,device_pos_x:device_pos_x,device_name:new_device_name,village_id:village_id},
+                data: {device_pos_y:device_pos_y,device_pos_x:device_pos_x,device_name:new_device_name,village_id:village_id,device_id:device_id},
                 url: "http://127.0.0.1:3000/addDevice",
                 dataType: 'json',
                 cache: false,
                 timeout: 5000,
                 type:'post',  // 如果要使用GET方式，则将此处改为'get'
                 success: function(data){
-                    alert(data)
+                    location.reload();
                 },
                 error: function(jqXHR, textStatus, errorThrown){
-                    alert(XMLHttpRequest.status);
-                    alert(XMLHttpRequest.readyState);
-                    alert(textStatus);
+                    alert('请求失败，请重试');
+                    //alert(XMLHttpRequest.readyState);
+                    //alert(textStatus);
                 }
             });
   
 
      });
+
+   
     </script>
 
 
