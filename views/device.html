@@ -32,7 +32,7 @@
   	          	<% for (var i=0;i<modules.length;i++){ %>
                   <div class="module-box module-info" id="module-<%= modules[i].module_id %>"  style="margin-top:5px;height:40px;">
                     <div class="span8">
-      			    	      <h4><a style="color:#0a0a0a;margin-left:20px" href="device?id=<%= modules[i].device_id %>&modulesId=<%= modules[i].module_id %>"> <%= modules[i].module_name %></a></h4>
+      			    	      <h4><a style="color:#0a0a0a;margin-left:20px" href="device?id=<%= modules[i].device_id %>&moduleId=<%= modules[i].module_id %>"> <%= modules[i].module_name %></a></h4>
                     </div>
                      <div id="edit-module-<%= modules[i].module_id %>" class="edit-module span4" style="display:none;margin:5px 0 5px 0"> 
                         <a href="editModule?id=<%= modules[i].module_id %>&device_id=1"> 编辑</a>
