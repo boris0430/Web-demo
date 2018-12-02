@@ -153,8 +153,9 @@ router.get('/device', function(req, res) {
     var queryObj = url.parse(req.url,true).query;
 
     var moduleList=[];
-    var module = {}
-    var device_name = ''
+    var module = {};
+    var device_name = '';
+    var villiage_id = '';
     var id = queryObj.id;
     var moduleId = queryObj.moduleId;
     if (id) {
@@ -175,16 +176,20 @@ router.get('/device', function(req, res) {
             }
             if (module){
                 device_name = module['device_name']
+                villiage_id = module['village_id']
                 console.log(moduleList);
-                res.render('device', { title: 'Home', user: res.locals.islogin, modules:moduleList, module:module,device_id:id,device_name:device_name });
+                res.render('device', { title: 'Home', user: res.locals.islogin, modules:moduleList, 
+                    module:module,device_id:id,device_name:device_name,villiage_id: villiage_id });
         
             }else{
 
                 db.getDevice(client, id, function (result) {
                     device = result[0];
-                    device_name = device['device_name']
+                    device_name = device['device_name'];
+                    villiage_id = device['village_id'];
                     console.log(moduleList);
-                    res.render('device', { title: 'Home', user: res.locals.islogin, modules:moduleList, module:module,device_id:id,device_name:device_name });
+                    res.render('device', { title: 'Home', user: res.locals.islogin, modules:moduleList,
+                     module:module,device_id:id,device_name:device_name,villiage_id: villiage_id});
                 });
             }
            
