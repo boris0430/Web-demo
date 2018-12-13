@@ -115,10 +115,14 @@ router.get('/deviceList', function(req, res) {
     var deviceList=[];
 
     var village_id = queryObj.id;
+    var type = 1;
+    if (queryObj.type){
+        type = queryObj.type;
+    }
     if (village_id) {
         client=db.connect();
        
-        db.getDeviceList(client, village_id, function (result) {
+        db.getDeviceList(client, village_id, type, function (result) {
 
             deviceList = result;
 
@@ -132,11 +136,11 @@ router.get('/deviceList', function(req, res) {
                 arr[deviceList[i]["pos_x"]-1][deviceList[i]["pos_y"]-1] = deviceList[i];
             }
             //console.log(arr);
-            res.render('deviceList', { village_id: village_id, user: res.locals.islogin, devices:arr });
+            res.render('deviceList', { village_id: village_id, user: res.locals.islogin, devices:arr,type:type });
         });
    
     }else{
-        res.render('deviceList', { village_id: 1, user: res.locals.islogin, devices:deviceList });
+        res.render('deviceList', { village_id: 1, user: res.locals.islogin, devices:deviceList,type:type });
     }
     
 });
@@ -215,7 +219,13 @@ router.route('/addDevice')
                   res.send('true');
             });
         } else {
-             db.addDevice(client,req.body.village_id ,req.body.device_name,req.body.device_pos_x,req.body.device_pos_y,
+            if (req.body.type == 1){
+                v_level = 110;
+            }else {
+                v_level = 10;
+            }
+
+             db.addDevice(client,req.body.village_id ,req.body.device_name,req.body.device_pos_x,req.body.device_pos_y,v_level,
                      function (err) {
                   if(err) throw err;
                   res.send('true');

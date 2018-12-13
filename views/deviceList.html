@@ -6,6 +6,10 @@
         <input type="text" class="input-block-level" id="village_id" name="village_id" placeholder=         <%= village_id %>  value= <%= village_id %> > 
       </div>
 
+      <div style="display:none"> 
+        <input type="text" class="input-block-level" id="type" name="type"   value= <%= type %> > 
+      </div>
+
     <div class="container-fluid">
       <div class="row-fluid" style="border: 1px solid #0185cb;margin-top:20px;">
 
@@ -15,10 +19,10 @@
             </div>
             <div style="text-align:center;border-bottom: 1px solid #0185cb;height:60px;">
               <div class="span4">
-                <div class="active" style="margin:10px 30px 10px 30px;background-color:#36bf26;padding:10px;text-align:center"><a style="background-color:#36bf26;color:#ffffff" href="#">主控室</a></div>
+                <div class="active" style="margin:10px 30px 10px 30px;background-color:#36bf26;padding:10px;text-align:center"><a style="background-color:#36bf26;color:#ffffff" href="deviceList?id=<%= village_id %>&type=1">主控室</a></div>
               </div>
               <div class="span4">
-                 <div class="active" style="margin:10px 30px 10px 30px;background-color:#ec7b06;padding:10px;text-align:center"><a style="background-color:#ec7b06;color:#ffffff" href="#">10kv高压室</a></div>
+                 <div class="active" style="margin:10px 30px 10px 30px;background-color:#ec7b06;padding:10px;text-align:center"><a style="background-color:#ec7b06;color:#ffffff" href="deviceList?id=<%= village_id %>&type=2">10kv高压室</a></div>
               </div>
               <div class="span4">
                  <div class="active" style="margin:10px 30px 10px 30px;background-color:#ec7b06;padding:10px;text-align:center"><a style="background-color:#ec7b06;color:#ffffff" href="#">台账</a></div>
@@ -80,7 +84,7 @@
           </div>
 
           
-          <div class="modal fade" id="myModal" tabindex="-5" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal fade"  id="myModal" style="top:-100%" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -132,6 +136,7 @@
         $("#device_pos_y").val('');
           //alert("aa");
         $("#myModalLabel").text("新增");
+        $('#myModal').css('top','40px');
         $('#myModal').modal();
      });
 
@@ -146,6 +151,7 @@
 
 
         $("#myModalLabel").text("编辑");
+        $('#myModal').css('top','40px');
         $('#myModal').modal();
      });
 
@@ -172,9 +178,10 @@
           new_device_name = $("#new_device_name").val();
           village_id = $("#village_id").val();
           device_id = $("#new_device_id").val();
+          type = $("#type").val();
         
           $.ajax({
-                data: {device_pos_y:device_pos_y,device_pos_x:device_pos_x,device_name:new_device_name,village_id:village_id,device_id:device_id},
+                data: {device_pos_y:device_pos_y,device_pos_x:device_pos_x,device_name:new_device_name,village_id:village_id,device_id:device_id,type:type},
                 url: "http://127.0.0.1:3000/addDevice",
                 dataType: 'json',
                 cache: false,
